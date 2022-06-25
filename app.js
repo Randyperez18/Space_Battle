@@ -21,7 +21,7 @@ class Ship {
         this.hull = randomizer(3, 6)
         this.firePower = randomizer(2, 4)
         this.accuracy = randomizer(.6, .8)
-        this.yourTurn = false //I'm think of using this as some sort of way to track who's turn it is. Maybe at the end of the attack function !(yourTurn) or something.
+        this.yourTurn = false //I'm think of using this as some sort of way to track who's turn it is. Maybe at the end of the attack function !(yourTurn)
         attack(alien){
             if (Math.random < Ship.accuracy) {
                 alien.hull -=
