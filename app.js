@@ -17,11 +17,14 @@ I think step one is making the Ship class and each individual ship
 */
 const randomizer = (min, max) => Math.random() * (max - min) + min;
 class Ship {
-    constructor(hull, firePower, accuracy, user) {
-        this.hull = hull
-        this.firePower = firePower
-        this.accuracy = accuracy
-        this.user = user //I'm think of using this as some sort of way to track who's turn it is. Maybe at the end of the attack function !(yourTurn)
+    constructor(hull, firePower, accuracy, user, name) {
+        this._hull = hull
+        this._name = name
+        this._firePower = firePower
+        this._accuracy = accuracy
+        this._user = user
+        this._turn = user
+        //I'm think of using this as some sort of way to track who's turn it is. Maybe at the end of the attack function !(yourTurn)
 
     }
     get hull() {
@@ -34,6 +37,16 @@ class Ship {
         } else {
             return "I messed up bad"
         }
+    }
+    get name() {
+        return this._name
+    }
+    set name(name) {
+        if (typeof name === 'string') {
+            this._name = name
+            return this._name
+        }
+
     }
     get firePower() {
         return this._firePower
@@ -57,14 +70,20 @@ class Ship {
             return "I messed up bad"
         }
     }
-    userAttack(enemy) {
+    Attack(enemy) {
         enemy.hull -= this.firePower
-        turn = false
-        console.log(enemy.hull) //maybe create a function that checks if either ship was destroyed and if so do stuff. Run at the end of every turn.
+        this.turn = false // I don't think I need this
+        enemy.turn = true
+        //maybe create a function that checks if either ship was destroyed and if so do stuff. Run at the end of every turn.
+        console.log(`${enemy.name} has taken ${this.firePower} damage! ${enemy.name} can only take ${enemy.hull} more damage! `)
+        enemy.hull < 0 ? console.log(`${enemy.name} destroyed!`) : enemy.Attack(this)
     }
 }
+//Just the user and alien ships for now.
+const userShip = new Ship(20, 5, .7, true, 'YABOY')
+const alienShip = new Ship(randomizer(3, 6), randomizer(2, 4), randomizer(.6, .8), false, 'ALIENSHIP')//I kinda want to make the health and fire power math.floored I don't want them to have 5.0000001 health and you not one shot them because of it. It feels dumb.
 
-const userShip = new Ship(20, 5, .7, true)
-console.log(youShip.accuracy)
-const alienShip = new Ship(randomizer(3, 6), randomizer(2, 4), randomizer(.6, .8), false)
-console.log(alienShip)
+const gameStart = () => {
+    userShip.Attack(alienShip)
+}
+gameStart();
