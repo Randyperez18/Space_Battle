@@ -17,28 +17,54 @@ I think step one is making the Ship class and each individual ship
 */
 const randomizer = (min, max) => Math.random() * (max - min) + min;
 class Ship {
-    constructor() {
-        this.hull = randomizer(3, 6)
-        this.firePower = randomizer(2, 4)
-        this.accuracy = randomizer(.6, .8)
-        this.yourTurn = false //I'm think of using this as some sort of way to track who's turn it is. Maybe at the end of the attack function !(yourTurn)
-        attack(alien){
-            if (Math.random < Ship.accuracy) {
-                alien.hull -=
-        }
+    constructor(hull, firePower, accuracy, user) {
+        this.hull = hull
+        this.firePower = firePower
+        this.accuracy = accuracy
+        this.user = user //I'm think of using this as some sort of way to track who's turn it is. Maybe at the end of the attack function !(yourTurn)
 
-            if (Math.random() < alien.accuracy) {
-                this.hull -= alien.firePower
-            }
+    }
+    get hull() {
+        return this._hull
+    }
+    set hull(num) {
+        if (typeof num === 'number') {
+            this._hull = num
+            return this._hull
+        } else {
+            return "I messed up bad"
         }
     }
+    get firePower() {
+        return this._firePower
+    }
+    set firePower(num) {
+        if (typeof num === 'number') {
+            this._firePower = num
+            return this._firePower
+        } else {
+            return "I messed up bad"
+        }
+    }
+    get accuracy() {
+        return this._accuracy
+    }
+    set accuracy(num) {
+        if (typeof num === 'number') {
+            this._accuracy = num
+            return this._accuracy
+        } else {
+            return "I messed up bad"
+        }
+    }
+    userAttack(enemy) {
+        enemy.hull -= this.firePower
+        turn = false
+        console.log(enemy.hull) //maybe create a function that checks if either ship was destroyed and if so do stuff. Run at the end of every turn.
+    }
 }
-const userShip = {
-    hull: 20,
-    firePower: 5,
-    accuracy: .7
-    //I want some sort of special move method
-}
-let example = new Ship;
-console.log(example.accuracy)
-let billy = randomizer(7, 9)
+
+const userShip = new Ship(20, 5, .7, true)
+console.log(youShip.accuracy)
+const alienShip = new Ship(randomizer(3, 6), randomizer(2, 4), randomizer(.6, .8), false)
+console.log(alienShip)
