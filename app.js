@@ -70,20 +70,55 @@ class Ship {
             return "I messed up bad"
         }
     }
-    Attack(enemy) {
+    attack(enemy) {
         enemy.hull -= this.firePower
         this.turn = false // I don't think I need this
         enemy.turn = true
         //maybe create a function that checks if either ship was destroyed and if so do stuff. Run at the end of every turn.
-        console.log(`${enemy.name} has taken ${this.firePower} damage! ${enemy.name} can only take ${enemy.hull} more damage! `)
-        enemy.hull < 0 ? console.log(`${enemy.name} destroyed!`) : enemy.Attack(this)
-    }
+        let p = document.querySelector('#logp')
+        let logValue = `${enemy.name} has taken ${this.firePower} damage! ${enemy.name} destroyed !`
+        if (enemy.hull > 0) {
+
+            logValue = `${enemy.name} has taken ${this.firePower} damage! ${enemy.name} can only take ${enemy.hull} more damage! `
+            enemy.Attack(this)
+        }
+        p.innerHTML = logValue
+        if (enemy.hull < 0) {
+            return
+        }
+
+    } //spawn(variable) {
+    //     let variable = new Ship(randomizer(3, 6), randomizer(2, 4), randomizer(.6, .8), false, 'Kroognaught')
+    // }
 }
+const fact = (...args) => new Ship(...args)
+
+let billy = fact(randomizer(3, 6), randomizer(2, 4), randomizer(.6, .8), false, 'Kroog')
+console.log(billy)
+let krogs = ['Kroogger', 'Kroogy', 'Kroogus', 'Kroogalina', 'Kroogabell', 'Kruis', 'Krohamed', 'Krian', 'Kreep', 'Krisael', 'Krohann', 'Krosue']
+// const getRandomItem = (arr) => {
+//     const randomIndex = Math.floor(Math.random() * arr.length)
+//     const item = arr[randomIndex]
+//     return item
+// }
+// Ship.spawn(krogs[Math.floor(Math.random() * krogs.length - 1)])
 //Just the user and alien ships for now.
-const userShip = new Ship(20, 5, .7, true, 'YABOY')
-const alienShip = new Ship(randomizer(3, 6), randomizer(2, 4), randomizer(.6, .8), false, 'ALIENSHIP')//I kinda want to make the health and fire power math.floored I don't want them to have 5.0000001 health and you not one shot them because of it. It feels dumb.
+const userShip = new Ship(20, 5, .7, true, 'You')
+const krohann = new Ship(Math.floor(randomizer(3, 6)), randomizer(2, 4), randomizer(.6, .8), false, 'Krohann')//I kinda want to make the health and fire power math.floored I don't want them to have 5.0000001 health and you not one shot them because of it. It feels dumb.
+const krisael = new Ship(Math.floor(randomizer(3, 6)), randomizer(2, 4), randomizer(.6, .8), false, 'Krisael')
+const krian = new Ship(Math.floor(randomizer(3, 6)), randomizer(2, 4), randomizer(.6, .8), false, 'Krian')
+const krosue = new Ship(randomizer(3, 6), randomizer(2, 4), randomizer(.6, .8), false, 'Krosue')
+
+// document.querySelector('#hull').textContent = 7
+// let fireP = document.querySelector('#firePower')
+// let accuracy = document.querySelector('#accuracy')
+// let log = document.querySelector('#log')
+
 
 const gameStart = () => {
-    userShip.Attack(alienShip)
+    userShip.attack(krohann)
 }
-gameStart();
+
+
+// const play = document.querySelector('#play')
+// play.addEventListener('click', gameStart())

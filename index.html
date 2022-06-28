@@ -19,17 +19,19 @@
             <div class="nameBox">You</div>
             <div class="playerImage"></div>
             <div class="playerStats">
-                Hull : 15 <br>
-                FirePower : 5 <br>
-                Accuracy : .7 <br>
+                <div id="hull">7</div>
+                <p id="firePower"></p>
+                <p id="accuracy"></p>
             </div>
 
         </div>
 
         <div id="playbox">
-            <button id="play">Play</button>
+            <button onclick="gameStart()" id="play">Play</button>
             <div id="logbox">
-                <div id="log"></div>
+                <div id="log">
+                    <p id="logp"></p>
+                </div>
             </div>
         </div>
         <div class="mainCharacterView right">
@@ -37,9 +39,6 @@
             <div class="nameBox">Invaders</div>
             <div class="enemyImage"></div>
             <div class="enemyStats">
-                Hull : 6 <br>
-                FirePower : 3 <br>
-                Accuracy : .6 <br>
             </div>
 
         </div>
