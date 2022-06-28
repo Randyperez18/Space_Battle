@@ -91,11 +91,6 @@ class Ship {
     //     let variable = new Ship(randomizer(3, 6), randomizer(2, 4), randomizer(.6, .8), false, 'Kroognaught')
     // }
 }
-const fact = (...args) => new Ship(...args)
-
-let billy = fact(randomizer(3, 6), randomizer(2, 4), randomizer(.6, .8), false, 'Kroog')
-console.log(billy)
-let krogs = ['Kroogger', 'Kroogy', 'Kroogus', 'Kroogalina', 'Kroogabell', 'Kruis', 'Krohamed', 'Krian', 'Kreep', 'Krisael', 'Krohann', 'Krosue']
 // const getRandomItem = (arr) => {
 //     const randomIndex = Math.floor(Math.random() * arr.length)
 //     const item = arr[randomIndex]
@@ -103,8 +98,8 @@ let krogs = ['Kroogger', 'Kroogy', 'Kroogus', 'Kroogalina', 'Kroogabell', 'Kruis
 // }
 // Ship.spawn(krogs[Math.floor(Math.random() * krogs.length - 1)])
 //Just the user and alien ships for now.
-const userShip = new Ship(20, 5, .7, true, 'You')
-const krohann = new Ship(Math.floor(randomizer(3, 6)), randomizer(2, 4), randomizer(.6, .8), false, 'Krohann')//I kinda want to make the health and fire power math.floored I don't want them to have 5.0000001 health and you not one shot them because of it. It feels dumb.
+const arwing = new Ship(20, 5, .7, true, 'You')
+const krohann = new Ship(Math.floor(randomizer(3, 6)), randomizer(2, 4), randomizer(.6, .8), false, 'Krohann')
 const krisael = new Ship(Math.floor(randomizer(3, 6)), randomizer(2, 4), randomizer(.6, .8), false, 'Krisael')
 const krian = new Ship(Math.floor(randomizer(3, 6)), randomizer(2, 4), randomizer(.6, .8), false, 'Krian')
 const krosue = new Ship(randomizer(3, 6), randomizer(2, 4), randomizer(.6, .8), false, 'Krosue')
@@ -116,9 +111,10 @@ const krosue = new Ship(randomizer(3, 6), randomizer(2, 4), randomizer(.6, .8), 
 
 
 const gameStart = () => {
-    userShip.attack(krohann)
+    arwing.attack(krohann)
+    // I need to have it ask you if you want to keep playing and then have it attack a new alien
 }
-
+console.log(krisael)
 
 // const play = document.querySelector('#play')
 // play.addEventListener('click', gameStart())
