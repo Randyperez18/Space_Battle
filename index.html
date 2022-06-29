@@ -12,7 +12,7 @@
 
 <body>
     <div class="popup" id="popup">
-        <button class="btn" id="cont" onclick="closePopup()" type="submit">Continue</button>
+        <button class="btn" id="cont" onclick="closePopup(),combat()" type="submit">Continue</button>
         <button class="btn" id="retreat" onclick="closePopup()" type="submit">Retreat</button>
 
     </div>
@@ -30,7 +30,7 @@
         </div>
 
         <div id="playbox">
-            <button onclick="gameStart()" id="play">Ready? <br> Attack!</button>
+            <button onclick="gameStart(),invis();" id="play">Ready? <br> Attack!</button>
             <div id="logbox">
                 <div id="log">
                     <!-- <div id="btnbox"></div> -->

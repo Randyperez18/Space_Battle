@@ -75,7 +75,7 @@ class Ship {
     }
 }
 //samus/metroids
-const samus = new Ship(20, 4, .7, 'Samus')
+const samus = new Ship(20, .5, .7, 'Samus')
 const metroidNames = ['Krohann', 'Krisael', 'Krian', 'Krose', 'Kruan', 'Kruis']
 let metroidGang = []
 const spawnShips = () => {
@@ -94,6 +94,8 @@ let metroidHeader = document.querySelector('#metroidNameBox')
 let logP = document.querySelector('#logp')
 let popup = document.querySelector('#popup')
 let play = document.querySelector('#play')
+let contBtn = document.querySelector('#cont')
+let retreatBtn = document.querySelector('#retreat')
 
 // play.addEventListener('click', popup())
 //getter functions
@@ -111,22 +113,29 @@ const openPopup = () => {
 const closePopup = () => {
     popup.classList.remove("open-popup")
 }
-
+const lose = () => {
+    logValue = `Game Over`
+    console.log(`Game Over`)
+    getLogP();
+}
+const invis = () => play.classList.add('invis')
 
 getLogP();
 getSamusStats();
 getMetroidStats();
 metroidNombre();
+
 //Samus Attack
 const powerBeam = () => {
     if (samus.accuracy >= Math.random()) {
         metroidAttacker.hull -= samus.firePower
         //get metroid attacker hull to change html
-        console.log(`Samus' power beam did ${samus.firePower} damage!`)
+        console.log(`Samus' power beam did ${samus.firePower} damage! \n ${metroidAttacker.name} has ${metroidAttacker.hull} health left. `)
         logValue = `Samus' power beam did ${samus.firePower} damage! \n ${metroidAttacker.name} has ${metroidAttacker.hull} health left. `
         getLogP();
     } else {
-        logValue = 'Target dodged your power beam!'
+        logValue = `${metroidAttacker.name} dodged your power beam!`
+        console.log(`${metroidAttacker.name} dodged your power beam!`)
         getLogP();
     }
 }
@@ -149,29 +158,42 @@ const combat = () => {
         powerBeam()
         getMetroidStats()
         metroidAttacker.checkStatus()
+        if (metroidAttacker.alive === false) {
+            if (metroidGang.length <= 0) {
+                logValue = 'YOU WIN!'
+                console.log('YOU WIN')
+                getLogP();
+                return
+            }
+            metroidAttacker = metroidGang.pop()
+            console.log(metroidGang.length)
+            setTimeout(openPopup, 1000);
+            logValue = 'Another Metroid approaches'
+            setTimeout(getLogP, 1000);
+            return
+        }
         metroidBite()
         getSamusStats()
         samus.checkStatus()
+        if (samus.alive === false) {
+            lose();
+        }
         console.log(samus.hull, metroidAttacker.hull)
     }
 }
-const nextFight = () => {
+// contBtn.addEventListener('click', combat())
 
-
-}
 // let continue = () => {
 // }
 const gameStart = () => {
     if (metroidAttacker.alive === true) {
         if (samus.alive === false) {
-            console.log('you lose')
+            lose();
             //insert death function
             //I was considering having another popup that has the samsus exploding 
             // gif and has a button to restart.
         }
-
         combat();
-        console.log(metroidGang.length)
         // powerBeam();
         // getMetroidStats();
         // metroidAttacker.checkStatus();
@@ -180,30 +202,23 @@ const gameStart = () => {
         // getSamusStats();
         // samus.checkStatus();
         // console.log(samus.hull, metroidAttacker.hull)
-
-
-
     }
 
-    else {
-        if (metroidGang.length > 0) {
-            setTimeout(openPopup, 1000);
-            metroidAttacker = metroidGang.pop()
-            combat();
-        } else {
-            logValue = 'You win!'
-            //you win func
-            //I think I want ANOTHER popup with the samus with the scarf gif
-        }
-
+    if (metroidGang.length > 0) {
+        // setTimeout(openPopup, 1000);
+        metroidAttacker = metroidGang.pop()
+    } else {
+        logValue = 'You win!'
+        //you win func
+        //I think I want ANOTHER popup with the samus with the scarf gif
     }
+
 
 
     // I need to have it ask you if you want to keep playing and then have it attack a new alien
 
     getMetroidStats();
     metroidNombre();
-
 }
 // powerBeam();
 // gameStart();
