@@ -1,10 +1,10 @@
 @font-face {
-    font-family: "SerpentineDbol";
-    src: url(images\SerpentineDBol.ttf) format("truetype");
+    src: url(\SerpentineDBol.ttf);
+    font-family: metroid;
 }
 
 p.customfont {
-    font-family: "SerpentineDbol", Verdana, Tahoma;
+    font-family: metroid;
 }
 
 .bodyContainer {
@@ -21,13 +21,13 @@ p.customfont {
 * {
     margin: 0;
     padding: 0;
-    font-family: "Serpentine", Verdana, Tahoma;
+    font-family: metroid;
 
 }
 
 body {
     background-image: url(https://art.ngfiles.com/images/2056000/2056337_dreamspectre_planet-zebes.gif?f1630756368);
-    background-size: 100% 200%;
+    background-size: 100% 180%;
 }
 
 .mainCharacterView {
@@ -65,7 +65,7 @@ body {
 
 .playerImage {
     border: 1px solidblack;
-    width: 30vw;
+    width: 28vw;
     height: 35vh;
     background-image: url("images/samuship.gif");
     background-size: 70%;
@@ -123,6 +123,7 @@ body {
 
 #play {
     display: flex;
+    position: absolute;
     justify-content: center;
     align-items: center;
     background-color: black;
@@ -130,12 +131,12 @@ body {
     border: 1px solidblack;
     width: 15vw;
     height: 15vh;
+    top: 35%;
+    left: 42%;
     margin-top: 50px;
-    margin-left: 16%;
     text-align: center;
     font-size: 1.5em;
     box-shadow: 0px 0px 20px 10px white;
-    font-family: "SerpentineDbol", Verdana, Tahoma;
     cursor: pointer;
     border-radius: 60%;
 
@@ -153,16 +154,19 @@ body {
 
 #log {
     display: flex;
+    position: absolute;
     justify-content: center;
     align-items: baseline;
     border: 1px solidblack;
-    width: 100%;
-    height: 200px;
-    margin-top: 450px;
+    width: 32%;
+    height: 300px;
+    top: 4%;
+    left: 34%;
     text-align: center;
     font-size: 1.5em;
     box-shadow: 0px 0px 20px 10px white;
     background-image: url(images/logbg.jpg);
+    background-size: 100% 100%;
 }
 
 #logbox {
@@ -200,26 +204,36 @@ body {
 }
 
 .btn {
-    padding: 10px 60px;
+    padding: 10px 20px;
     border: 0;
     outline: none;
     cursor: pointer;
     font-size: 22px;
     font-weight: 500;
     border-radius: 30px;
-    margin-top: 350px;
+    margin-top: 370px;
+    height: 12%;
+    background-color: grey;
+    width: 180px;
 }
 
 #cont {
-    margin-right: 10px;
+    /* margin-right: 10px; */
+    margin-left: 40px;
+    color: orange;
+    box-shadow: 0px 0px 20px 10px orange;
+
 }
 
 #retreat {
-    margin-left: 10px;
+    margin-left: 60px;
+    color: greenyellow;
+    box-shadow: 0px 0px 20px 10px greenyellow;
+
 }
 
 #logp {
-    margin-top: 30px;
+    margin-top: 70px;
 }
 
 .popup {
@@ -229,12 +243,15 @@ body {
     border-radius: 6px;
     position: absolute;
     top: 0%;
+    display: flex;
+
     left: 50%;
     transform: translate(-50%, -50%) scale(0.1);
     visibility: hidden;
     text-align: center;
     padding: 0 30px 30px;
     transition: transform 0.4s, top 0.4s;
+    z-index: 2;
 }
 
 .open-popup {

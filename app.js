@@ -97,7 +97,7 @@ let popup = document.querySelector('#popup')
 //getter functions
 const getSamusStats = () => samusStats.innerHTML = `Hull: ${samus.hull}\n Cannon power: ${samus.firePower}\n Accuracy: ${Math.round(samus.accuracy * 100)}%`
 
-const getMetroidStats = () => metroidStats.innerHTML = `Hull: ${metroidAttacker.hull} \n Cannon power: ${metroidAttacker.firePower}\n Accuracy: ${Math.round((metroidAttacker.accuracy * 100))}%`
+const getMetroidStats = () => metroidStats.innerHTML = `Hull: ${metroidAttacker.hull} \n Cannon Power: ${metroidAttacker.firePower}\n Accuracy: ${Math.round((metroidAttacker.accuracy * 100))}%`
 
 const getLogP = () => logP.innerHTML = logValue
 
