@@ -23,8 +23,6 @@ class Ship {
         this._firePower = firePower
         this._accuracy = accuracy
         this._name = name
-        //I'm think of using this as some sort of way to track who's turn it is. Maybe at the end of the attack function !(yourTurn)
-
     }
     get hull() {
         return this._hull
@@ -69,28 +67,6 @@ class Ship {
             return "I messed up bad"
         }
     }
-    // attack(enemy) {
-    //     if (Math.random() < this.accuracy) {
-    //         enemy.hull -= this.firePower
-    //         console.log(enemy.hull)
-    //     }
-    //     // this.turn = false // I don't think I need this
-    //     // enemy.turn = true
-    //     //maybe create a function that checks if either ship was destroyed and if so do stuff. Run at the end of every turn.
-    //     let p = document.querySelector('#logp')
-    //     let logValue = `${enemy.name} has taken ${this.firePower} damage! ${enemy.name} destroyed !`
-
-    //     if (enemy.hull > 0) {
-    //         logValue = `${enemy.name} has taken ${this.firePower} damage! ${enemy.name} can only take ${enemy.hull} more damage! `
-    //         enemy.attack(this)
-    //     }
-    //     console.log(this.hull)
-    //     p.innerHTML = logValue
-    // if (this.hull < 0 || enemy.hull < 0) {
-    //     return
-    // }
-
-    // }
     checkStatus() {
         if (this.hull <= 0) {
             return this.alive = false
@@ -104,8 +80,8 @@ let metroidGang = []
 const spawnShips = () => {
     metroidGang.push(new Ship(Math.floor(randomizer(3, 6)), Math.floor(randomizer(2, 4)), randomizer(.6, .8), metroidNames[Math.floor(randomizer(0, 6))]))
 }
-for (i of metroidNames) {
-    spawnShips(i)
+for (metroid of metroidNames) {
+    spawnShips(metroid)
 }
 let metroidAttacker = metroidGang.pop()
 console.log(metroidGang);
@@ -117,15 +93,22 @@ let samusStats = document.querySelector('.playerStats')
 let metroidStats = document.querySelector('.enemyStats')
 let metroidHeader = document.querySelector('#metroidNameBox')
 let logP = document.querySelector('#logp')
-
+let popup = document.querySelector('#popup')
 //getter functions
-const getSamusStats = () => samusStats.innerHTML = `Hull: ${samus.hull}\n Cannon power: ${samus.firePower}\n Accuracy: ${Math.round(samus.accuracy * 10)}0%`
+const getSamusStats = () => samusStats.innerHTML = `Hull: ${samus.hull}\n Cannon power: ${samus.firePower}\n Accuracy: ${Math.round(samus.accuracy * 100)}%`
 
-const getMetroidStats = () => metroidStats.innerHTML = `Hull: ${metroidAttacker.hull} Cannon power: ${metroidAttacker.firePower} Accuracy: ${Math.round((metroidAttacker.accuracy * 10))}0%`
+const getMetroidStats = () => metroidStats.innerHTML = `Hull: ${metroidAttacker.hull} \n Cannon power: ${metroidAttacker.firePower}\n Accuracy: ${Math.round((metroidAttacker.accuracy * 100))}%`
 
 const getLogP = () => logP.innerHTML = logValue
 
 const metroidNombre = () => metroidHeader.innerHTML = metroidAttacker.name;
+
+const openPopup = () => {
+    popup.classList.add("open-popup")
+}
+const closePopup = () => {
+    popup.classList.remove("open-popup")
+}
 
 getLogP();
 getSamusStats();
@@ -137,8 +120,10 @@ const powerBeam = () => {
         metroidAttacker.hull -= samus.firePower
         //get metroid attacker hull to change html
         logValue = `Samus did ${samus.firePower} damage!`
+        getLogP();
     } else {
         logValue = 'Target dodged your power beam!'
+        getLogP();
     }
 }
 //Samus Attack
@@ -152,39 +137,24 @@ let metroidBite = () => {
     }
 }
 
-// document.querySelector('#hull').textContent = 7
-// let fireP = document.querySelector('#firePower')
-// let accuracy = document.querySelector('#accuracy')
-// let log = document.querySelector('#log')
-// const cont = () => {
-//     /*user needs to be propmted to continue or retreat
-//     // */
-//     let firstBtn = document.createElement('button')
-//     let secondBtn = document.createElement('button')
-//     firstBtn.innerHTML = 'Continue?'
-//     secondBtn.innerHTML = 'Retreat?'
-//     document.querySelector('#btnbox').appendChild(newBtn)
-//     document.querySelector('#logbox').appendChild(secondBtn)
+const gameStart = () => {
+    if (metroidAttacker.alive) {
+        if (samus.alive === false) {
+            //insert death function
+        }
+        powerBeam();
+        metroidAttacker.checkStatus();
+        metroidBite();
+        samus.checkStatus();
+    } else {
+        if (metroidGang.length > 0) {
+            metroidAttacker = metroidGang.pop()
+        } else {
+            //you win func
+        }
+        openPopup();
+    }
+    // I need to have it ask you if you want to keep playing and then have it attack a new alien
 
-// }
-// cont()
-// const gameStart = () => {
-//     if (metroidAttacker.alive) {
-//         if (samus.alive === false) {
-//             //insert death function
-//         }
-//         powerBeam();
-//         metroidAttacker.checkStatus();
-//         metroidBite();
-//         samus.checkStatus();
-//     } else {
-//         if (metroidGang.length > 0) {
-//             metroidAttacker = metroidGang.pop()
-//         } else {
-//             //you win func
-//         }
-//     }
-//     // I need to have it ask you if you want to keep playing and then have it attack a new alien
-
-// }
+}
 

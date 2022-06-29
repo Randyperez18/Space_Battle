@@ -13,15 +13,21 @@
 </head>
 
 <body>
+    <div class="popup" id="popup">
+        <h2>Fight on? Or retreat?</h2>
+        <button class="btn" id="cont" onclick="closePopup()" type="submit">Continue?</button>
+        <button class="btn" id="retreat" onclick="closePopup()" type="submit">Retreat?</button>
+
+    </div>
     <div class="bodyContainer">
 
         <div class="mainCharacterView left">
             <div class="nameBox">Samus</div>
             <div class="playerImage"></div>
             <div class="playerStats">
-                <div id="hull">7</div>
+                <!-- <div id="hull"></div>
                 <p id="firePower"></p>
-                <p id="accuracy"></p>
+                <p id="accuracy"></p> -->
             </div>
 
         </div>
@@ -30,7 +36,7 @@
             <button onclick="gameStart()" id="play">Play</button>
             <div id="logbox">
                 <div id="log">
-                    <div id="btnbox"></div>
+                    <!-- <div id="btnbox"></div> -->
                     <p id="logp"></p>
                 </div>
             </div>
