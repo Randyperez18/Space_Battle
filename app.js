@@ -23,6 +23,7 @@ class Ship {
         this._firePower = firePower
         this._accuracy = accuracy
         this._name = name
+        this.alive = true
     }
     get hull() {
         return this._hull
@@ -74,8 +75,8 @@ class Ship {
     }
 }
 //samus/metroids
-const samus = new Ship(20, 5, .7, 'Samus')
-const metroidNames = ['Krohann', 'Krisael', 'Krian', 'Krosue', 'Kruan', 'Kruis']
+const samus = new Ship(20, 4, .7, 'Samus')
+const metroidNames = ['Krohann', 'Krisael', 'Krian', 'Krose', 'Kruan', 'Kruis']
 let metroidGang = []
 const spawnShips = () => {
     metroidGang.push(new Ship(Math.floor(randomizer(3, 6)), Math.floor(randomizer(2, 4)), randomizer(.6, .8), metroidNames[Math.floor(randomizer(0, 6))]))
@@ -84,22 +85,23 @@ for (metroid of metroidNames) {
     spawnShips(metroid)
 }
 let metroidAttacker = metroidGang.pop()
-console.log(metroidGang);
-console.log(metroidAttacker)
 
 //selector variables
-let logValue = 'Ready Samus?' //Printed messages
+let logValue = 'Prepare yourself Samus. Several Metroids incoming.' //Printed messages
 let samusStats = document.querySelector('.playerStats')
 let metroidStats = document.querySelector('.enemyStats')
 let metroidHeader = document.querySelector('#metroidNameBox')
 let logP = document.querySelector('#logp')
 let popup = document.querySelector('#popup')
+let play = document.querySelector('#play')
+
+// play.addEventListener('click', popup())
 //getter functions
 const getSamusStats = () => samusStats.innerHTML = `Hull: ${samus.hull}\n Cannon power: ${samus.firePower}\n Accuracy: ${Math.round(samus.accuracy * 100)}%`
 
-const getMetroidStats = () => metroidStats.innerHTML = `Hull: ${metroidAttacker.hull} \n Cannon Power: ${metroidAttacker.firePower}\n Accuracy: ${Math.round((metroidAttacker.accuracy * 100))}%`
+const getMetroidStats = () => metroidStats.innerHTML = `Health: ${metroidAttacker.hull} \n Strength: ${metroidAttacker.firePower}\n Accuracy: ${Math.round((metroidAttacker.accuracy * 100))}%`
 
-const getLogP = () => logP.innerHTML = logValue
+const getLogP = () => logP.textContent = logValue
 
 const metroidNombre = () => metroidHeader.innerHTML = metroidAttacker.name;
 
@@ -110,6 +112,7 @@ const closePopup = () => {
     popup.classList.remove("open-popup")
 }
 
+
 getLogP();
 getSamusStats();
 getMetroidStats();
@@ -119,7 +122,8 @@ const powerBeam = () => {
     if (samus.accuracy >= Math.random()) {
         metroidAttacker.hull -= samus.firePower
         //get metroid attacker hull to change html
-        logValue = `Samus did ${samus.firePower} damage!`
+        console.log(`Samus' power beam did ${samus.firePower} damage!`)
+        logValue = `Samus' power beam did ${samus.firePower} damage! \n ${metroidAttacker.name} has ${metroidAttacker.hull} health left. `
         getLogP();
     } else {
         logValue = 'Target dodged your power beam!'
@@ -128,33 +132,78 @@ const powerBeam = () => {
 }
 //Samus Attack
 let metroidBite = () => {
-    if (metroidAttacker.hull >= Math.random()) {
+    if (metroidAttacker.accuracy >= Math.random()) {
         samus.hull -= metroidAttacker.firePower
         //get metroid attacker hull to change html
         logValue = `Samus took ${metroidAttacker.firePower} damage`
+        console.log(`Samus took ${metroidAttacker.firePower} damage`)
+        getLogP();
     } else {
         logValue = `Samus dodged Metroid ${metroidAttacker.name}'s attack`
+        console.log(`Samus dodged Metroid ${metroidAttacker.name}'s attack`)
+        getLogP();
     }
 }
-
-const gameStart = () => {
-    if (metroidAttacker.alive) {
-        if (samus.alive === false) {
-            //insert death function
-        }
-        powerBeam();
-        metroidAttacker.checkStatus();
-        metroidBite();
-        samus.checkStatus();
-    } else {
-        if (metroidGang.length > 0) {
-            metroidAttacker = metroidGang.pop()
-        } else {
-            //you win func
-        }
-        openPopup();
+const combat = () => {
+    while (samus.alive === true & metroidAttacker.alive === true) {
+        powerBeam()
+        getMetroidStats()
+        metroidAttacker.checkStatus()
+        metroidBite()
+        getSamusStats()
+        samus.checkStatus()
+        console.log(samus.hull, metroidAttacker.hull)
     }
+}
+const nextFight = () => {
+
+
+}
+// let continue = () => {
+// }
+const gameStart = () => {
+    if (metroidAttacker.alive === true) {
+        if (samus.alive === false) {
+            console.log('you lose')
+            //insert death function
+            //I was considering having another popup that has the samsus exploding 
+            // gif and has a button to restart.
+        }
+
+        combat();
+        console.log(metroidGang.length)
+        // powerBeam();
+        // getMetroidStats();
+        // metroidAttacker.checkStatus();
+        // setTimeout(metroidAttacker.checkStatus, 5)
+        // setTimeout(metroidBite, 1000);
+        // getSamusStats();
+        // samus.checkStatus();
+        // console.log(samus.hull, metroidAttacker.hull)
+
+
+
+    }
+
+    else {
+        if (metroidGang.length > 0) {
+            setTimeout(openPopup, 1000);
+            metroidAttacker = metroidGang.pop()
+            combat();
+        } else {
+            logValue = 'You win!'
+            //you win func
+            //I think I want ANOTHER popup with the samus with the scarf gif
+        }
+
+    }
+
+
     // I need to have it ask you if you want to keep playing and then have it attack a new alien
 
-}
+    getMetroidStats();
+    metroidNombre();
 
+}
+// powerBeam();
+// gameStart();

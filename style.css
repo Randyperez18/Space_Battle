@@ -1,5 +1,5 @@
 @font-face {
-    src: url(\SerpentineDBol.ttf);
+    src: url(SerpentineDBol.ttf);
     font-family: metroid;
 }
 
@@ -252,6 +252,7 @@ body {
     padding: 0 30px 30px;
     transition: transform 0.4s, top 0.4s;
     z-index: 2;
+    border: 2px;
 }
 
 .open-popup {
