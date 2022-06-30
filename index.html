@@ -11,9 +11,14 @@
 </head>
 
 <body>
+    <div class="popupWin" id="win">
+        <h2 id="winP">Mission Complete <br> <br> Metroids eliminated</h2>
+        <button onclick="location.reload()" class="btn" id="reload">Play again?</button>
+    </div>
+    <div id="lose" class="popupLose"></div>
     <div class="popup" id="popup">
         <button class="btn" id="cont" onclick="closePopup(),combat()" type="submit">Continue</button>
-        <button class="btn" id="retreat" onclick="closePopup()" type="submit">Retreat</button>
+        <button class="btn" id="retreat" onclick="closePopup(),lose()" type="submit">Retreat</button>
 
     </div>
     <div class="bodyContainer">

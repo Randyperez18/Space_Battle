@@ -75,7 +75,7 @@ class Ship {
     }
 }
 //samus/metroids
-const samus = new Ship(20, .5, .7, 'Samus')
+const samus = new Ship(20, 4, .7, 'Samus')
 const metroidNames = ['Krohann', 'Krisael', 'Krian', 'Krose', 'Kruan', 'Kruis']
 let metroidGang = []
 const spawnShips = () => {
@@ -96,7 +96,8 @@ let popup = document.querySelector('#popup')
 let play = document.querySelector('#play')
 let contBtn = document.querySelector('#cont')
 let retreatBtn = document.querySelector('#retreat')
-
+let popLose = document.querySelector('.popupLose')
+let popWin = document.querySelector('#win')
 // play.addEventListener('click', popup())
 //getter functions
 const getSamusStats = () => samusStats.innerHTML = `Hull: ${samus.hull}\n Cannon power: ${samus.firePower}\n Accuracy: ${Math.round(samus.accuracy * 100)}%`
@@ -107,8 +108,14 @@ const getLogP = () => logP.textContent = logValue
 
 const metroidNombre = () => metroidHeader.innerHTML = metroidAttacker.name;
 
+const openWin = () => popWin.classList.add('open-popup')
+
 const openPopup = () => {
     popup.classList.add("open-popup")
+
+}
+const openLose = () => {
+    popLose.classList.add('open-popup')
 }
 const closePopup = () => {
     popup.classList.remove("open-popup")
@@ -117,6 +124,7 @@ const lose = () => {
     logValue = `Game Over`
     console.log(`Game Over`)
     getLogP();
+    openLose();
 }
 const invis = () => play.classList.add('invis')
 
@@ -136,7 +144,7 @@ const powerBeam = () => {
     } else {
         logValue = `${metroidAttacker.name} dodged your power beam!`
         console.log(`${metroidAttacker.name} dodged your power beam!`)
-        getLogP();
+        setTimeout(getLogP, 500)
     }
 }
 //Samus Attack
@@ -163,16 +171,17 @@ const combat = () => {
                 logValue = 'YOU WIN!'
                 console.log('YOU WIN')
                 getLogP();
+                openWin()
                 return
             }
             metroidAttacker = metroidGang.pop()
             console.log(metroidGang.length)
-            setTimeout(openPopup, 1000);
-            logValue = 'Another Metroid approaches'
+            setTimeout(openPopup, 1300);
+            logValue = 'Another Metroid approaches. Continue the battle?'
             setTimeout(getLogP, 1000);
             return
         }
-        metroidBite()
+        setTimeout(metroidBite, 500)
         getSamusStats()
         samus.checkStatus()
         if (samus.alive === false) {
