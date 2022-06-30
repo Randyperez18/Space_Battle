@@ -163,6 +163,7 @@ let metroidBite = () => {
 }
 const combat = () => {
     while (samus.alive === true & metroidAttacker.alive === true) {
+        metroidNombre()
         powerBeam()
         getMetroidStats()
         metroidAttacker.checkStatus()
